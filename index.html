@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>절대 BL인 세계</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e3f3ff;--fg:#1f4d7a;--a:#3a9be8;--a2:#7cc4ff;--sh:#1f6fb8;--h:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 6' shape-rendering='crispEdges'%3E%3Cpath d='M1 0h2v1H1zM4 0h2v1H4zM0 1h7v2H0zM1 3h5v1H1zM2 4h3v1H2zM3 5h1v1H3z'/%3E%3C/svg%3E");box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f2036;--fg:#cfe8ff}}
+:root[data-theme="dark"]{--bg:#0f2036;--fg:#cfe8ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:Jua,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:10px}
+#stage{position:relative;width:min(96vw,800px);aspect-ratio:4/3;overflow:hidden;border:4px solid #fff;outline:3px solid var(--a2);container-type:inline-size;background:#cfe9ff;user-select:none;cursor:pointer}
+#bg{position:absolute;inset:0;background-size:cover;background-position:center}
+#bg.ph{background:radial-gradient(circle at 20% 30%,#fff9 0 12%,transparent 13%),radial-gradient(circle at 75% 20%,#fff9 0 16%,transparent 17%),radial-gradient(circle at 82% 75%,#fff7 0 20%,transparent 21%),linear-gradient(135deg,hsl(var(--hue),85%,84%),hsl(calc(var(--hue) + 25),85%,93%))}
+#bgl{position:absolute;right:3%;top:3%;color:#fff;font-size:2.4cqw;text-shadow:0 1px 3px var(--sh)}
+#chars{position:absolute;left:0;right:0;bottom:0;height:90%;display:flex;justify-content:center;align-items:flex-end;gap:6%;pointer-events:none}
+#chars>*{pointer-events:auto}
+.ci{height:100%;max-width:46%;object-fit:contain}
+.cph{height:78%;width:34%;border:3px dashed var(--a);background:#fff6;display:flex;align-items:center;justify-content:center;color:var(--a);font-size:3.4cqw;text-align:center}
+.hrt{display:inline-block;width:1.2em;height:1.05em;background:var(--a);-webkit-mask:var(--h) center/contain no-repeat;mask:var(--h) center/contain no-repeat;vertical-align:-.1em}
+.lg{color:var(--a);line-height:1.1;text-shadow:2px 0 #fff,-2px 0 #fff,0 2px #fff,0 -2px #fff,2px 2px #fff,-2px -2px #fff,2px -2px #fff,-2px 2px #fff}
+.lg b{display:inline-block;background:#fff;border:2px solid var(--a2);border-radius:14px;padding:.1em .6em;font-weight:400;text-shadow:none}
+.lg h1,.lg h2{margin:.1em 0 0;font-weight:400}
+#logo{position:absolute;left:3%;top:3%}
+#logo b{font-size:2.4cqw}#logo h1{font-size:5.4cqw}
+#title{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:2.5cqw;background:rgba(255,255,255,.18);text-align:center;cursor:default}
+.ttl #title{display:flex}
+.ttl #dlg,.ttl #mn,.ttl #logo{display:none}
+#title .lg b{font-size:3.4cqw}#title .lg h2{font-size:10cqw}
+#ts{color:#fff;font-size:3cqw;text-shadow:0 1px 3px var(--sh)}
+#tlogo{max-width:78%;max-height:42%;object-fit:contain}
+#slogo{max-width:30cqw;max-height:14cqw;object-fit:contain;display:block}
+.pb,#go{font:inherit;padding:8px 18px;border:2px solid var(--a2);background:var(--a);color:#fff;cursor:pointer;text-decoration:none;display:inline-block}
+.pb.big{font-size:4cqw;padding:.4em 1.6em;box-shadow:0 0 0 3px #fff}
+.pb.s{background:#fff;color:var(--a)}
+#dlg{position:absolute;left:4%;right:4%;bottom:9%;min-height:27%;box-sizing:border-box;background:rgba(58,155,232,.55);border:3px solid #fff;backdrop-filter:blur(2px);color:#fff;padding:3.5% 5% 4%;text-align:center;text-shadow:0 1px 3px var(--sh)}
+#top{position:absolute;bottom:100%;left:-3px;display:flex;align-items:flex-end;gap:2cqw}
+#nm{background:#fff;color:#222;padding:.25em 2.2em .2em .8em;font-size:3.4cqw;clip-path:polygon(0 0,86% 0,100% 100%,0 100%);text-shadow:none}
+#hr{font-size:3cqw;white-space:nowrap}
+#tx{font-size:clamp(12px,3.3cqw,28px);line-height:1.5;min-height:1.5em}
+#chs{display:none;justify-content:center;gap:6%;flex-wrap:wrap;margin-top:2%}
+.c{background:none;border:0;color:#fff;font:inherit;font-size:3cqw;cursor:pointer;padding:.2em .5em;text-shadow:0 1px 3px var(--sh)}
+.c::before{content:"- "}.c:hover::before{content:"→ "}.c:hover{color:#fff36a}
+#nx{position:absolute;left:50%;bottom:2%;transform:translateX(-50%);font-size:2.6cqw;animation:bl 1s steps(2) infinite}
+@keyframes bl{50%{opacity:0}}
+#tl{position:absolute;right:3%;bottom:2%;display:flex;gap:2cqw;font-size:2.4cqw}
+.tg{background:none;border:0;color:#fff;font:inherit;cursor:pointer;padding:0;text-shadow:0 1px 2px var(--sh)}.tg.on{color:#fff36a}
+#mn{position:absolute;left:4%;bottom:1.6%;display:flex;gap:4cqw;font-size:3cqw}
+#mn button{background:none;border:0;font:inherit;cursor:pointer;padding:0;color:var(--a);text-shadow:1px 1px #fff,-1px -1px #fff,1px -1px #fff,-1px 1px #fff}
+#toast{position:absolute;left:50%;top:44%;transform:translateX(-50%);background:#fff;color:var(--a);padding:.4em 1em;border:2px solid var(--a2);font-size:3cqw;display:none}
+#modal{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,30,60,.55);cursor:default}
+.box{background:#fff;color:#1f4d7a;border:3px solid var(--a2);box-shadow:0 0 0 3px #fff,6px 6px 0 3px var(--a2);padding:16px;width:min(86%,330px);text-align:center}
+.box h2{margin:0 0 10px;font-size:18px;font-weight:400}
+input[type=password]{width:100%;box-sizing:border-box;padding:9px;font:inherit;font-size:16px;border:2px solid var(--a2);text-align:center}
+#msg{min-height:20px;margin:8px 0;font-size:14px;color:#d8397a}
+.row{display:flex;gap:8px;justify-content:center}
+#go{display:none;margin-top:6px}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.shake{animation:sh .25s 2}
+details{width:min(96vw,800px);font-size:14px}
+details label{display:inline-block;margin:6px 14px 0 0}
+</style>
+</head>
+<body>
+<div id="stage" class="ttl">
+<div id="bg" class="ph"></div><div id="bgl"></div>
+<div id="chars"></div>
+<div id="logo" class="lg"><b id="bub"></b><h1 id="ttl"></h1><img id="slogo" alt="" style="display:none"></div>
+<div id="dlg">
+<div id="top"><div id="nm"><i class="hrt"></i> <span id="who"></span></div><div id="hr"><i class="hrt"></i><i class="hrt"></i><i class="hrt"></i><i class="hrt" style="opacity:.5"></i></div></div>
+<div id="tx"></div><div id="chs"></div><div id="nx">▼</div>
+<div id="tl"><button class="tg" id="skip">skip</button><button class="tg" id="auto">⇄auto</button></div>
+</div>
+<div id="mn"><button id="home">Home</button><button id="save">Save</button><button id="load">Load</button></div>
+<div id="title"><div class="lg"><b id="tb"></b><h2 id="tt"></h2></div><img id="tlogo" alt="" style="display:none"><div id="ts"></div>
+<button class="pb big" id="play">▶ PLAY</button><button class="pb s" id="cont" style="display:none">이어하기</button></div>
+<div id="toast"></div>
+<div id="modal"><div class="box"><h2>"비밀번호를 말해줘!"</h2>
+<input id="pw" type="password" autocomplete="off" maxlength="40" placeholder="비밀번호"><div id="msg"></div>
+<div class="row"><button class="pb" id="ok">확인</button><button class="pb s" id="x">닫기</button></div>
+<a id="go" target="_blank" rel="noopener">비밀 사이트로 이동</a></div></div>
+</div>
+<details><summary>내 이미지로 미리보기 (이 브라우저에서만 보여요)</summary><div id="pick"></div></details>
+<script>
+// ===== 설정 =====
+const PASSWORD="hamster", TARGET_URL="https://example.com";
+const BUBBLE="두근두근", TITLE="절대 BL인 세계", SUB="~ 러브스토리 ~";
+const RIVAL="서진";            // 대사 속 {상대} 가 이 이름으로 바뀌어요
+const IMG={};                  // 예) IMG["방"]="data:image/png;base64,..."  (비우면 자리표시)
+
+// ===== 이야기 (여기 아래에 계속 추가하세요) =====
+// [배경: 이름] [캐릭터: 이름, 이름]  → 장면 설정 / 이름: 대사 / (괄호 또는 이름 없는 줄) → 지문
+// ?선택: 질문  다음 줄에 "- 선택지 → 응답"  / ?비밀번호: 대사 → 마지막
+const STORY=`
+[배경: 방] [캐릭터: 나]
+나: 오늘은 처음 전학을 온 날이다. 어떤 친구를 만나게 될지 기대되는걸.
+나: 새 교복도, 새 가방도 준비 완료!
+나: 어젯밤엔 긴장돼서 잠도 제대로 못 잤지만… 괜찮아. 잘할 수 있어.
+나: 좋아, 출발하자!
+
+[배경: 마을]
+(골목을 막 돌던 순간, 누군가와 쾅 부딪혔다!)
+나: 어, 뭐야!
+[캐릭터: 나, 상대]
+???: 죄송합니다. 제가 좀 급해서요.
+(그 사람은 고개를 꾸벅 숙이더니 순식간에 달려가 버렸다.)
+[캐릭터: 나]
+나: 첫날부터 어깨빵을 당했다… 심상치 않은데.
+나: 어? 그런데 방금 그 사람, 우리 학교 교복이었던 것 같은데?
+?선택: 어떻게 할까?
+- 뒤쫓아 간다 → (이미 모퉁이 너머로 사라졌다. 발이 엄청 빠르네…)
+- 신경 쓰지 않는다 → (신경 쓰지 않으려 했는데, 이상하게 자꾸 생각이 났다.)
+나: 일단 학교로 가자. 지각하면 안 되니까!
+
+[배경: 교실] [캐릭터: 나]
+선생님: 자, 조용! 오늘 전학생을 소개할게요.
+나: 안녕하세요. 잘 부탁드립니다!
+(그때, 교실 문이 벌컥 열렸다.)
+[캐릭터: 나, 상대]
+{상대}: 늦어서 죄송합… 앗.
+나: 어?! 아까 그 사람!
+{상대}: 아, 아까 그… 어깨…!
+선생님: 두 사람, 아는 사이니?
+나: 아, 아니요! 그냥 오다가 잠깐…
+{상대}: 저, 저도요! 그냥 지나가다가…
+선생님: 마침 {상대} 옆자리가 비었네. 전학생은 저기 앉으렴.
+나: 네?!
+{상대}: 아까는 정말 미안했어. 다친 데 없어?
+나: 괜찮아. 그보다 너, 되게 급해 보이던데.
+{상대}: …사실 아침마다 길냥이 밥을 주거든. 오늘은 좀 늦어버려서.
+나: 길냥이? 의외인데. 무서운 애인 줄 알았어.
+{상대}: 뭐? 내가 무섭게 생겼어?
+나: 아니, 그냥 눈이 마주쳤을 때 심장이 철렁해서…
+{상대}: ……
+(말해놓고 보니 이상한 말이었다. 귀가 뜨거워진다.)
+?선택: 어색한 분위기를 어떻게 풀까?
+- 길냥이 보러 가도 되냐고 묻는다 → {상대}: 어? 정말? …좋아, 방과 후에 데려가 줄게.
+- 교과서를 보여 달라고 한다 → {상대}: 아, 맞다! 전학 와서 아직 교과서 없지? 같이 보자.
+
+[배경: 옥상] [캐릭터: 나, 상대]
+(점심시간, 그 아이가 옥상으로 안내해 주었다.)
+{상대}: 여기가 우리 학교에서 제일 좋아하는 곳이야. 바람이 시원하지?
+나: 우와… 마을이 다 보인다.
+{상대}: 아까 네가 걸어오던 골목도 보여. 저기, 고양이 집 있는 곳.
+나: 진짜네. 거기서 부딪힌 거구나.
+{상대}: 그 얘긴 이제 그만… 정말 미안하다니까.
+나: 하하, 사과는 열 번쯤 들은 것 같아.
+{상대}: 그럼 사과 대신 매점 빵 사줄게. 뭐 좋아해?
+?선택: 뭐라고 대답할까?
+- 단팥빵! → {상대}: 오, 취향 좋은데? 나도 단팥빵 제일 좋아해.
+- 아무거나 괜찮아 → {상대}: 아무거나가 제일 어려운데… 그럼 내가 제일 좋아하는 걸로 고를게.
+{상대}: 이거 하나만 약속해. 내일부터 같이 점심 먹는 거다.
+나: …응. 좋아.
+(바람이 불어 머리카락이 흩날렸다. 이상하게 심장이 두근거린다.)
+
+[배경: 하교길] [캐릭터: 나, 상대]
+(방과 후, 노을이 하늘을 물들였다.)
+{상대}: 같이 가자. 길냥이한테 소개해 줄게.
+나: 정말? 기대된다.
+{상대}: 낯을 많이 가려서 처음엔 도망갈 수도 있어. 그래도 기다려 주면 와.
+나: 그런 건 누구랑 닮았네.
+{상대}: 뭐?
+나: 아무것도 아니야!
+{상대}: 있잖아. 오늘 처음 만났는데, 이상하게 오래 알던 사람 같아.
+나: …나도 그래.
+(둘 사이로 따뜻한 저녁 바람이 지나갔다.)
+
+[배경: 학교] [캐릭터: 상대]
+{상대}: 그런데 말이야. 너한테만 알려주고 싶은 비밀이 하나 있어.
+?선택: 비밀 사이트로 가고 싶지?
+- 응, 가고 싶어! → 좋아, 그럼 마지막 관문이야.
+- 음… 고민돼. → 걱정 마, 넌 알 거야.
+?비밀번호: 비밀번호를 말해줘. 맞히면 문이 열려!
+`;
+// ================================
+const $=id=>document.getElementById(id),SP=/^([^:：\[\]()?]{1,12})[:：]\s*(.+)$/;
+function parse(src){
+  const out=[],L=src.replace(/\{상대\}/g,RIVAL).split('\n').map(s=>s.trim()).filter(s=>s&&!s.startsWith('//'));
+  let pend={},last='';
+  for(let k=0;k<L.length;k++){
+    let l=L[k].replace(/\[(배경|캐릭터):\s*([^\]]*)\]/g,(_,a,b)=>{b=b.trim();if(a==='배경')pend.bg=b;else pend.chars=(!b||b==='없음')?[]:b.split(/\s*,\s*/);return''}).trim();
+    if(!l)continue;
+    const s=Object.assign({},pend);pend={};
+    if(l.startsWith('?선택:')){s.who=last;s.t=l.slice(4).trim();s.ch=[];
+      while(L[k+1]&&L[k+1].startsWith('-')){const [a,b]=L[++k].slice(1).split('→'),r=(b||'').trim(),m=r.match(SP);
+        s.ch.push(m?{l:a.trim(),t:m[2],w:m[1].trim()}:{l:a.trim(),t:r})}}
+    else if(l.startsWith('?비밀번호:')){s.who=last;s.t=l.slice(6).trim();s.pw=true;s.ch=[{l:'비밀번호를 말한다',pw:true}]}
+    else{const m=l.match(SP);if(m){s.who=m[1].trim();s.t=m[2];last=s.who}else{s.who='';s.t=l}}
+    out.push(s)}
+  return out}
+const S=parse(STORY);
+$('go').href=TARGET_URL;$('bub').textContent=$('tb').textContent=BUBBLE;$('ttl').textContent=$('tt').textContent=TITLE;$('ts').textContent=SUB;
+const hue=s=>190+[...s].reduce((a,c)=>a+c.charCodeAt(0),0)%50;
+let i=0,cur={bg:null,chars:[]},full='',n=0,typing=false,locked=false,modal=false,auto=false,skip=false,idle=0,fr=0,started=false;
+function apply(s){if('bg' in s)cur.bg=s.bg;if('chars' in s)cur.chars=s.chars}
+function scene(){
+  const lg=IMG['로고'];
+  [['tlogo','tb','tt'],['slogo','bub','ttl']].forEach(([im,a,t])=>{const e=$(im);e.style.display=lg?'block':'none';if(lg)e.src=lg;$(a).style.display=$(t).style.display=lg?'none':''});
+  const b=$('bg'),u=IMG[cur.bg];
+  if(u){b.className='';b.style.backgroundImage='url("'+u+'")';$('bgl').textContent=''}
+  else{b.className='ph';b.style.backgroundImage='';b.style.setProperty('--hue',hue(cur.bg||'x'));$('bgl').textContent=cur.bg?'배경: '+cur.bg:''}
+  const box=$('chars');box.innerHTML='';
+  cur.chars.forEach(nm=>{let e;if(IMG[nm]){e=document.createElement('img');e.src=IMG[nm];e.className='ci'}else{e=document.createElement('div');e.className='cph';e.textContent=nm}e.dataset.c=1;box.appendChild(e)})}
+function show(k){
+  i=k;const s=S[k];apply(s);scene();
+  $('top').style.display=s.who?'flex':'none';$('who').textContent=s.who;
+  full=s.t;n=0;typing=true;locked=false;
+  const box=$('chs');box.innerHTML='';box.style.display='none';
+  if(s.ch){locked=true;box.style.display='flex';
+    s.ch.forEach((o,j)=>{const e=document.createElement('button');e.className='c';e.textContent=o.l;e.onclick=ev=>{ev.stopPropagation();pick(j)};box.appendChild(e)})}}
+function goto(k){cur={bg:null,chars:[]};for(let j=0;j<k;j++)apply(S[j]);show(k)}
+function pick(j){const o=S[i].ch[j];if(o.pw){openModal();return}
+  if(o.w)$('who').textContent=o.w,$('top').style.display='flex';
+  $('chs').style.display='none';full=o.t;n=0;typing=true;locked=false}
+function advance(){if(!started||modal||locked)return;if(typing){n=full.length;typing=false;return}if(i<S.length-1)show(i+1)}
+function title(){started=false;$('stage').classList.add('ttl');cur={bg:'타이틀',chars:[]};scene();typing=false;
+  let k=null;try{k=localStorage.getItem('abl_save')}catch(e){}$('cont').style.display=k!==null?'inline-block':'none'}
+function begin(k){started=true;$('stage').classList.remove('ttl');goto(k)}
+$('play').onclick=()=>begin(0);
+$('cont').onclick=()=>{try{begin(Math.min(+localStorage.getItem('abl_save'),S.length-1))}catch(e){begin(0)}};
+$('stage').addEventListener('click',e=>{
+  if(!started||modal||e.target.closest('button,#modal,a'))return;
+  if(S[i].pw){if(!typing&&e.target.closest('[data-c]'))openModal();return}
+  advance()});
+addEventListener('keydown',e=>{
+  if(document.activeElement===$('pw')||document.activeElement.type==='file')return;
+  if(e.code==='Space'||e.code==='Enter'){e.preventDefault();
+    if(!started)begin(0);else if(S[i].pw&&!typing&&!modal)openModal();else advance()}});
+function toast(s){const t=$('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',1200)}
+$('home').onclick=()=>{auto=skip=false;$('auto').className=$('skip').className='tg';title()};
+$('save').onclick=()=>{try{localStorage.setItem('abl_save',i);toast('저장했어요 ♥')}catch(e){toast('저장할 수 없어요')}};
+$('load').onclick=()=>{try{const k=localStorage.getItem('abl_save');if(k!==null){goto(Math.min(+k,S.length-1));toast('불러왔어요 ♥')}else toast('저장된 기록이 없어요')}catch(e){toast('불러올 수 없어요')}};
+$('skip').onclick=()=>{skip=!skip;$('skip').className='tg'+(skip?' on':'')};
+$('auto').onclick=()=>{auto=!auto;$('auto').className='tg'+(auto?' on':'')};
+function openModal(){modal=true;$('modal').style.display='flex';$('msg').textContent='';$('pw').value='';setTimeout(()=>$('pw').focus(),50)}
+function closeModal(){modal=false;$('modal').style.display='none'}
+function check(){
+  if($('pw').value.trim()===PASSWORD){$('msg').textContent='정답! 문이 열렸어요 ♥';$('go').style.display='inline-block';$('ok').style.display='none'}
+  else{$('msg').textContent='비밀번호가 달라요. 다시 입력해 보세요.';const b=document.querySelector('.box');b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake')}}
+$('ok').onclick=check;$('x').onclick=closeModal;
+$('pw').addEventListener('keydown',e=>{if(e.key==='Enter')check();if(e.key==='Escape')closeModal()});
+// 이미지 미리보기 슬롯 (이야기에서 쓰는 이름을 자동으로 모아요)
+const keys=new Set(['타이틀','로고']);S.forEach(s=>{if(s.bg)keys.add(s.bg);(s.chars||[]).forEach(c=>keys.add(c))});
+keys.forEach(k=>{const l=document.createElement('label');l.textContent=k+' ';const f=document.createElement('input');f.type='file';f.accept='image/*';
+  f.onchange=()=>{const x=f.files[0];if(!x)return;const r=new FileReader();r.onload=()=>{IMG[k]=r.result;scene()};r.readAsDataURL(x)};
+  l.appendChild(f);$('pick').appendChild(l)});
+(function loop(){
+  fr++;
+  if(started){
+    if(typing){n+=.5;if(n>=full.length){n=full.length;typing=false}}
+    $('tx').textContent=full.slice(0,Math.floor(n));
+    $('nx').style.display=(!typing&&!locked&&i<S.length-1)?'block':'none';
+    if(!modal&&!locked&&i<S.length-1){
+      if(skip){n=full.length;typing=false;if(fr%8===0)show(i+1)}
+      else if(auto&&!typing){if(++idle>100){idle=0;show(i+1)}}else idle=0}}
+  requestAnimationFrame(loop)})();
+title();
+</script>
+</body>
+</html>
